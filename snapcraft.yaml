@@ -1,0 +1,53 @@
+name: fsuae
+version: '2.8.1~u3-0'
+summary: FS-UAE Amiga Emulator
+description: |
+  FS-UAE integrates the most accurate Amiga emulation code available from WinUAE.
+  FS-UAE emulates A500, A500+, A600, A1200, A1000, A3000 and A4000 models, but you
+  can tweak the hardware configuration and create customized Amigas
+
+grade: stable
+confinement: strict
+
+apps:
+  fs-uae:
+    command: desktop-launch fs-uae
+    plugs: [unity7, pulseaudio, home]
+#  launcher:
+#    command: fs-uae-launcher
+#    plugs: [unity7, pulseaudio, network, home]
+
+parts:
+  fs-uae:
+    source: https://fs-uae.net/stable/2.8.1u3/fs-uae-2.8.1u3.tar.gz
+    plugin: autotools
+    build-packages:
+      - g++
+      - gettext
+      - glee-dev
+      - libglew-dev
+      - libfreetype6-dev
+      - libglib2.0-dev
+      - libmpeg2-4-dev
+      - libopenal-dev
+      - libsdl2-dev
+      - libxi-dev
+      - zip
+    snap:
+      - -share/applications
+      - -share/doc
+    after:
+      - desktop-qt5
+
+  desktop-qt5:
+    snap:
+      - -usr/include
+      - -usr/share/apport
+      - -usr/share/doc
+      - -usr/share/doc-base
+      - -usr/share/libthai
+      - -usr/share/lintian
+      - -usr/share/man
+      - -usr/share/pkgconfig
+      - -var
+
