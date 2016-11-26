@@ -13,9 +13,9 @@ apps:
   fs-uae:
     command: desktop-launch fs-uae
     plugs: [unity7, pulseaudio, home]
-#  launcher:
-#    command: fs-uae-launcher
-#    plugs: [unity7, pulseaudio, network, home]
+  launcher:
+    command: desktop-launch fs-uae-launcher
+    plugs: [unity7, pulseaudio, network, home]
 
 parts:
   fs-uae:
@@ -39,6 +39,30 @@ parts:
     after:
       - desktop-qt5
 
+  launcher:
+    source: https://fs-uae.net/stable/2.8.1u3/fs-uae-launcher-2.8.1u3.tar.gz
+    plugin: make
+    stage-packages:
+      - python3-pkg-resources
+      - python3-pyqt5
+      - python3-pyqt5.qtopengl
+    after:
+      - desktop-qt5
+    organize:
+      usr/local/share/*: share/
+      usr/local/bin/*: bin/
+    snap:
+      - -usr/local
+      - -usr/include
+      - -usr/share/apport
+      - -usr/share/doc
+      - -usr/share/doc-base
+      - -usr/share/libthai
+      - -usr/share/lintian
+      - -usr/share/man
+      - -usr/share/pkgconfig
+      - -var
+
   desktop-qt5:
     snap:
       - -usr/include
@@ -50,4 +74,3 @@ parts:
       - -usr/share/man
       - -usr/share/pkgconfig
       - -var
-
