@@ -1,5 +1,5 @@
 name: fsuae
-version: '2.8.3-0'
+version: '2.8.3-1'
 summary: FS-UAE Amiga Emulator
 description: |
   FS-UAE integrates the most accurate Amiga emulation code available from WinUAE.
@@ -33,7 +33,7 @@ parts:
       - libsdl2-dev
       - libxi-dev
       - zip
-    snap:
+    prime:
       - -share/applications
       - -share/doc
     after:
@@ -51,7 +51,7 @@ parts:
     organize:
       usr/local/share/*: share/
       usr/local/bin/*: bin/
-    snap:
+    prime:
       - -usr/local
       - -usr/include
       - -usr/share/apport
@@ -64,7 +64,7 @@ parts:
       - -var
 
   desktop-qt5:
-    snap:
+    prime:
       - -usr/include
       - -usr/share/apport
       - -usr/share/doc

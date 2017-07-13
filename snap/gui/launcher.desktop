@@ -6,5 +6,5 @@ Exec=fsuae.launcher %f
 StartupNotify=true
 Terminal=false
 Type=Application
-Icon=${SNAP}/meta/gui/fs-uae-launcher.png
-Categories=System;Emulator;
+Icon=${SNAP}/meta/gui/launcher.png
+Categories=Game;Emulator;
