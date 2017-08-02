@@ -1,5 +1,5 @@
 name: fsuae
-version: '2.8.3-3'
+version: '2.8.3-4'
 summary: FS-UAE Amiga Emulator
 description: |
   FS-UAE integrates the most accurate Amiga emulation code available from WinUAE.
@@ -38,6 +38,9 @@ parts:
       - -share/doc
     after:
       - desktop-qt5
+    install: |
+      echo Stripping executables
+      strip $SNAPCRAFT_PART_INSTALL/bin/* > /dev/null || /bin/true
 
   launcher:
     source: https://fs-uae.net/stable/2.8.3/fs-uae-launcher-2.8.3.tar.gz
