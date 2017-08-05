@@ -1,5 +1,5 @@
 name: fsuae
-version: '2.8.3-5'
+version: '2.8.3-6'
 summary: FS-UAE Amiga Emulator
 description: |
   FS-UAE integrates the most accurate Amiga emulation code available from WinUAE.
@@ -12,10 +12,10 @@ confinement: strict
 apps:
   fs-uae:
     command: desktop-launch fs-uae
-    plugs: [unity7, pulseaudio, home]
+    plugs: [unity7, pulseaudio, home, opengl]
   launcher:
     command: desktop-launch python3 $SNAP/bin/fs-uae-launcher
-    plugs: [unity7, pulseaudio, network, home]
+    plugs: [unity7, pulseaudio, network, home, opengl]
 
 parts:
   fs-uae:
