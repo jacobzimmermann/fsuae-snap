@@ -12,10 +12,10 @@ confinement: strict
 apps:
   fs-uae:
     command: desktop-launch fs-uae
-    plugs: [desktop, desktop-legacy, x11, joystick, pulseaudio, home, opengl]
+    plugs: [desktop, desktop-legacy, x11, joystick, raw-usb, pulseaudio, home, opengl]
   launcher:
     command: desktop-launch python3 $SNAP/bin/fs-uae-launcher
-    plugs: [desktop, desktop-legacy, x11, joystick, pulseaudio, network, home, opengl]
+    plugs: [desktop, desktop-legacy, x11, joystick, raw-usb, pulseaudio, network, home, opengl]
 
 parts:
   fs-uae:
