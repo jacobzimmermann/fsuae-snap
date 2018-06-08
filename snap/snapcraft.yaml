@@ -1,5 +1,5 @@
 name: fsuae
-version: '2.8.3'
+version: '2.8.4'
 summary: FS-UAE Amiga Emulator
 description: |
   FS-UAE integrates the most accurate Amiga emulation code available from WinUAE.
@@ -8,6 +8,7 @@ description: |
 
 grade: stable
 confinement: strict
+base: core18
 
 apps:
   fs-uae:
@@ -19,7 +20,7 @@ apps:
 
 parts:
   fs-uae:
-    source: https://fs-uae.net/stable/2.8.3/fs-uae-2.8.3.tar.gz
+    source: https://fs-uae.net/stable/2.8.4/fs-uae-2.8.4.tar.gz
     plugin: autotools
     build-packages:
       - g++
@@ -38,14 +39,18 @@ parts:
       - -share/doc
     after:
       - desktop-qt5
-    install: |
+    override-build: |
+      snapcraftctl build
       echo Stripping executables
       strip $SNAPCRAFT_PART_INSTALL/bin/* > /dev/null || /bin/true
 
   launcher:
-    source: https://fs-uae.net/stable/2.8.3/fs-uae-launcher-2.8.3.tar.gz
+    source: https://fs-uae.net/stable/2.8.4/fs-uae-launcher-2.8.4.tar.gz
     plugin: make
+    build-packages:
+      - python3-distutils
     stage-packages:
+      - python3-distutils
       - python3-pkg-resources
       - python3-pyqt5
       - python3-pyqt5.qtopengl
@@ -67,13 +72,24 @@ parts:
       - -var
 
   desktop-qt5:
-    prime:
-      - -usr/include
-      - -usr/share/apport
-      - -usr/share/doc
-      - -usr/share/doc-base
-      - -usr/share/libthai
-      - -usr/share/lintian
-      - -usr/share/man
-      - -usr/share/pkgconfig
-      - -var
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: qt
+    plugin: make
+    make-parameters: ["FLAVOR=qt5"]
+    build-packages:
+      - dpkg-dev
+      - qtbase5-dev
+    stage-packages:
+      - adwaita-icon-theme
+      - dmz-cursor-theme
+      - gnome-themes-standard
+      - libxkbcommon0
+      - light-themes
+      - libqt5gui5
+      - libgdk-pixbuf2.0-0
+      - libqt5svg5
+      - locales-all
+      - shared-mime-info
+      - ttf-ubuntu-font-family
+      - qtwayland5
+      - xdg-user-dirs
