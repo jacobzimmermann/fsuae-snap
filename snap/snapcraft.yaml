@@ -13,10 +13,12 @@ base: core18
 apps:
   fs-uae:
     command: desktop-launch fs-uae
-    plugs: [desktop, desktop-legacy, x11, joystick, pulseaudio, home, opengl]
+    plugs: [desktop, wayland, desktop-legacy, x11, joystick, pulseaudio, home, opengl]
   launcher:
     command: desktop-launch python3 $SNAP/bin/fs-uae-launcher
-    plugs: [desktop, desktop-legacy, x11, joystick, pulseaudio, network, home, opengl]
+    environment:
+      QT_QPA_PLATFORM: x11
+    plugs: [desktop, wayland, desktop-legacy, x11, joystick, pulseaudio, network, home, opengl]
 
 parts:
   fs-uae:
@@ -40,6 +42,8 @@ parts:
     after:
       - desktop-qt5
     override-build: |
+      echo Applying use-snap-common-dir-fsuae.diff
+      patch -p1 < ../../../project/use-snap-common-dir-fsuae.diff
       snapcraftctl build
       echo Stripping executables
       strip $SNAPCRAFT_PART_INSTALL/bin/* > /dev/null || /bin/true
@@ -70,6 +74,10 @@ parts:
       - -usr/share/man
       - -usr/share/pkgconfig
       - -var
+    override-build: |
+      echo Applying use-snap-common-dir-launcher.diff
+      patch -p1 < ../../../project/use-snap-common-dir-launcher.diff
+      snapcraftctl build
 
   desktop-qt5:
     source: https://github.com/ubuntu/snapcraft-desktop-helpers.git

@@ -1,0 +1,15 @@
+diff --git a/fsboot/__init__.py b/fsboot/__init__.py
+index abeec2a..7080c96 100644
+--- a/fsboot/__init__.py
++++ b/fsboot/__init__.py
+@@ -135,9 +135,7 @@ def documents_dir(create=False):
+     elif sys.platform == "darwin":
+         path = os.path.join(home_dir(), "Documents")
+     else:
+-        path = xdg_user_dir("DOCUMENTS")
+-        if not path:
+-            path = home_dir()
++        path = os.environ["SNAP_USER_COMMON"]
+     assert isinstance(path, str)
+     # path = unicode_path(path)
+     if create and not os.path.isdir(path):

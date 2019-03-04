@@ -1,0 +1,50 @@
+diff --git a/libfsemu/src/filesys.c b/libfsemu/src/filesys.c
+index 25d8415..41af5af 100644
+--- a/libfsemu/src/filesys.c
++++ b/libfsemu/src/filesys.c
+@@ -322,35 +322,24 @@ int fs_fstat(int fd, struct fs_stat *buf) {
+ }
+ 
+ const char *fs_get_home_dir(void) {
+-#ifdef USE_GLIB
+-    return g_get_home_dir();
+-#else
+-    const char *result = getenv("HOME");
++    const char *result = getenv("SNAP_USER_COMMON");
+     if (!result) {
+         result = "";
+     }
+     return result;
+-#endif
+ }
+ 
+ const char *fs_get_documents_dir(void) {
+-#ifdef USE_GLIB
+-    return g_get_user_special_dir(G_USER_DIRECTORY_DOCUMENTS);
+-#else
+     static const char *dir = NULL;
+     // FIXME: not MT safe
+     // FIXME: support XDG spec, Windows
+     if (dir == NULL) {
+-        dir = g_build_filename(fs_get_home_dir(), "Documents", NULL);
++        dir = fs_get_home_dir();
+     }
+     return dir;
+-#endif
+ }
+ 
+ const char *fs_get_desktop_dir(void) {
+-#ifdef USE_GLIB
+-    return g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP);
+-#else
+     static const char *dir = NULL;
+     // FIXME: not MT safe
+     // FIXME: support XDG spec, Windows
+@@ -358,7 +347,6 @@ const char *fs_get_desktop_dir(void) {
+         dir = g_build_filename(fs_get_home_dir(), "Desktop", NULL);
+     }
+     return dir;
+-#endif
+ }
+ 
+ #ifdef USE_GLIB
