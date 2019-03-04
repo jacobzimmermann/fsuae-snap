@@ -1,0 +1,11 @@
+#!/bin/bash
+
+INDOCS=$(xdg-user-dir DOCUMENTS)/FS-UAE
+INCOMMON=$SNAP_USER_COMMON/FS-UAE
+
+if [ -d "$INDOCS" -a ! -d "$INCOMMON" ] ; then
+    echo Moving $INDOCS to $SNAP_USER_COMMON
+    mv $INDOCS $SNAP_USER_COMMON
+fi
+
+exec python3 $SNAP/bin/fs-uae-launcher $*
