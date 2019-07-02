@@ -19,6 +19,12 @@ apps:
     plugs: [desktop, wayland, desktop-legacy, x11, joystick, pulseaudio, network, home, opengl]
 
 parts:
+  patches:
+    source: patches
+    plugin: dump
+    prime:
+      - -*
+
   fs-uae:
     source: https://fs-uae.net/stable/3.0.0/fs-uae-3.0.0.tar.gz
     plugin: autotools
@@ -42,10 +48,11 @@ parts:
       - -share/applications
       - -share/doc
     after:
+      - patches
       - desktop-qt5
     override-build: |
       echo Applying use-snap-common-dir-fsuae.diff
-      patch -p1 < ../../../project/use-snap-common-dir-fsuae.diff
+      patch -p1 < $SNAPCRAFT_STAGE/use-snap-common-dir-fsuae.diff
       snapcraftctl build
       echo Stripping executables
       strip $SNAPCRAFT_PART_INSTALL/bin/* > /dev/null || /bin/true
@@ -62,6 +69,7 @@ parts:
       - python3-pyqt5.qtopengl
       - python3-requests
     after:
+      - patches
       - desktop-qt5
     organize:
       usr/local/share/*: share/
@@ -79,7 +87,7 @@ parts:
       - -var
     override-build: |
       echo Applying use-snap-common-dir-launcher.diff
-      patch -p1 < ../../../project/use-snap-common-dir-launcher.diff
+      patch -p1 < $SNAPCRAFT_STAGE/use-snap-common-dir-launcher.diff
       snapcraftctl build
 
   startlauncher:
