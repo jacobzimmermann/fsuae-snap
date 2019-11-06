@@ -1,5 +1,5 @@
 name: fsuae
-version: '3.0.0'
+version: '3.0.2'
 summary: FS-UAE Amiga Emulator
 description: |
   FS-UAE integrates the most accurate Amiga emulation code available from WinUAE.
@@ -26,7 +26,7 @@ parts:
       - -*
 
   fs-uae:
-    source: https://fs-uae.net/stable/3.0.0/fs-uae-3.0.0.tar.gz
+    source: https://fs-uae.net/stable/3.0.2/fs-uae-3.0.2.tar.gz
     plugin: autotools
     build-packages:
       - g++
@@ -58,7 +58,7 @@ parts:
       strip $SNAPCRAFT_PART_INSTALL/bin/* > /dev/null || /bin/true
 
   launcher:
-    source: https://fs-uae.net/stable/3.0.0/fs-uae-launcher-3.0.0.tar.gz
+    source: https://fs-uae.net/stable/3.0.2/fs-uae-launcher-3.0.2.tar.gz
     plugin: make
     build-packages:
       - python3-distutils
